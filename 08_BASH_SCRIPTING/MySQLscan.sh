@@ -1,15 +1,19 @@
 #!
 # find hosts with MySQL installed
 
-echo "default SQL port is 3306"
+echo "Enter starting ip address: "
+read first_ip
 
-echo "Enter IP address: "
+echo "Enter the last octet of the last ip address"
+read last_octet_ip
 
-read ip
+echo "Enter the port number you want to scan"
+echo "3306 is the default port for Open Source MySQL"
+echo "1433 is the default port for the Microsoft SQL Server Database"
+echo "DYOR"
+read port
 
-echo "IP: $ip"
-
-nmap -sT $ip -p 3306 > /dev/null -oG MySQLscan
+nmap -sT $first_ip-$last_octet_ip -p $port > /dev/null -oG MySQLscan
 
 cat MySQLscan | grep open > MySQLscan2
 
